@@ -6,8 +6,8 @@ import { clubs as initialClubs,categories,sortClubs,type Club } from '@/lib/club
 import { statusLabels } from '@/lib/workflow';
 
 const icons:Record<string,LucideIcon>={laurel:Award,microscope:Microscope,shield:Shield,award:Award,flower:Flower2,medal:Medal,feather:Feather,heart:HeartHandshake,calculator:Calculator,stethoscope:Stethoscope,dna:Dna,flask:FlaskConical,code:Code2,scale:Scale,smile:Smile,cross:Cross,plane:Plane,activity:Activity,sigma:Sigma,brain:Brain,atom:Atom,scan:ScanLine,briefcase:Briefcase,graduation:GraduationCap,book:BookOpen,presentation:Presentation,lightbulb:Lightbulb,rocket:Rocket,palette:Palette,camera:Camera,brush:Paintbrush,theater:Theater,handshake:Handshake,search:Search,megaphone:Megaphone,globe:Globe,landmark:Landmark,flag:Flag,library:Library,home:House,users:Users,sparkles:Sparkles};
-const categoryIcons=[GraduationCap,FlaskConical,Lightbulb,Palette,HeartHandshake,Library];
-const categoryNotes=['Find connection, celebrate achievement.','Turn a shared passion into your next step.','Big ideas start with curious people.','Make, perform, and express yourself.','Lead with purpose. Give something back.','Find the support to make campus yours.'];
+const categoryIcons=[GraduationCap,FlaskConical,Lightbulb,Palette,HeartHandshake,Library,Cross,Globe,Activity];
+const categoryNotes=['Find connection, celebrate achievement.','Turn a shared passion into your next step.','Big ideas start with curious people.','Make, perform, and express yourself.','Lead with purpose. Give something back.','Find the support to make campus yours.','Explore faith and grow together.','Share your story. Find your community.','Get moving, play, and show your spirit.'];
 type RequestItem={id:string;type:string;clubId:string|null;clubName:string;name:string;studentEmail:string;message:string;category:string|null;advisor:string|null;status:string;reviewerNote:string;createdAt:string;updatedAt:string;};
 type History={id:string;requestId:string;status:string;note:string;createdAt:string;};
 type User={name:string;email:string};

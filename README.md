@@ -1,6 +1,6 @@
 # LSUA Club Hub
 
-A responsive student organization directory for LSU Alexandria, with 44 supplied club, program, and resource entries, illustrated cards, detail dialogs, search, categories, local bookmarks, applications, new-club proposals, status history, and an administrator review queue. Listings appear alphabetically; membership counts are not displayed or used for ranking.
+A responsive student organization directory for LSU Alexandria, with 59 supplied club, program, and resource entries, illustrated cards, detail dialogs, search, categories, local bookmarks, applications, new-club proposals, status history, and an administrator review queue. Listings appear alphabetically; membership counts are not displayed or used for ranking.
 
 ## Live website
 
@@ -58,7 +58,7 @@ For a standalone Cloudflare deployment, configure an authenticated edge that str
 
 ## Reference quality and launch limits
 
-Descriptions come from the LSUA/organization pages linked in `lib/clubs.ts` and the supplied student reference. Unverified listings, the LSU Baton Rouge fallback, and older references are labeled. The Second Act’s exact identity remains unconfirmed. The inaccessible SharePoint document may contain additional clubs; 44 is the number of supplied directory entries, not a verified campus-wide total.
+Descriptions come from the LSUA/organization pages linked in `lib/clubs.ts` and the supplied student reference. Unverified listings, the LSU Baton Rouge fallback, and older references are labeled. The Second Act’s exact identity remains unconfirmed. The inaccessible SharePoint document may contain additional clubs; 59 is the number of supplied directory entries, not a verified campus-wide total.
 
 This is an independent student project, not an official university enrollment system. Campus-specific approval rules and join methods still need Student Life confirmation. Notifications appear in the site; outgoing email and automatic Involve synchronization are not configured. Never submit sensitive misconduct reports through club applications; use the Title IX office’s official channel.
 
@@ -74,3 +74,4 @@ This is an independent student project, not an official university enrollment sy
 ## Image/icon license
 
 Lucide icons are distributed under the ISC license in the installed `lucide-react` package. Custom composition, decorative art, and Club Hub branding are original site code. University branding is referenced descriptively; no official logo or endorsement is implied.
+
