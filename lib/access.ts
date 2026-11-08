@@ -1,8 +1,9 @@
 import { getChatGPTUser } from '@/app/chatgpt-auth';
+import {env} from 'cloudflare:workers';
 export async function identity() {
  const user=await getChatGPTUser();
  // Allowlist stays on the server. The development identity is never privileged in production.
- const allow=(process.env.CLUB_HUB_ADMIN_EMAILS||'').split(',').map(s=>s.trim().toLowerCase()).filter(Boolean);
+ const allow=(env.CLUB_HUB_ADMIN_EMAILS||process.env.CLUB_HUB_ADMIN_EMAILS||'').split(',').map(s=>s.trim().toLowerCase()).filter(Boolean);
  const admin=!!user&&(allow.includes(user.email.toLowerCase())||(process.env.NODE_ENV==='development'&&user.email==='seedy@sites.test'));
  return {user,admin};
 }

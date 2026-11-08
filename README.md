@@ -75,3 +75,19 @@ This is an independent student project, not an official university enrollment sy
 
 Lucide icons are distributed under the ISC license in the installed `lucide-react` package. Custom composition, decorative art, and Club Hub branding are original site code. University branding is referenced descriptively; no official logo or endorsement is implied.
 
+
+## Student and leader portals
+
+The navigation has a Student login/dashboard and a Club leader / Professor login/dashboard. Both use the existing secure ChatGPT sign-in; they are separate portal destinations, not separate passwords or university SSO.
+
+- Students see only their own confirmed active memberships and application history. Pending applications do not count as active memberships. Leaving a club marks the Club Hub membership inactive; official Involve records must be updated separately.
+- Club organizers and professor leads must first be assigned by an administrator in Review queue → Manage club representatives. Use the exact email on the representative's ChatGPT account, select their club, and choose organizer or professor lead. A person can represent multiple clubs.
+- Representatives can view and review applications only for their assigned clubs. They cannot assign roles, review other clubs, approve new-club proposals, or approve their own application. Professor leads have the same club-scoped review access as organizers.
+- Removing an assignment revokes access on subsequent requests. Existing pending requests stay in the queue for another representative or the administrator.
+- Approval creates or reactivates the applicant's active membership. This is a Club Hub record, not automatic university enrollment.
+
+Apply both `drizzle/0000_graceful_outlaw_kid.sql` and `drizzle/0001_fearless_iron_monger.sql`, in order, to a fresh local database. For an existing local database, apply only the unapplied second migration. Hosted migrations are applied by Sites during publication.
+
+After building, run `node tests/run-role-api.mjs` to test authorization against an isolated local Miniflare/D1 runtime. The harness creates fictional local identities and temporary data under ignored `work/`; it never contacts production and does not weaken production authentication. It checks anonymous access, administrator-only assignment, club-scoped organizer/professor access, cross-club denials, proposal isolation, self-approval denial, membership privacy, leaving/rejoining, and revocation.
+
+Owner-configured initial organizer grants can be supplied privately through `CLUB_HUB_BOOTSTRAP_ORGANIZERS` as a JSON array of `{email, clubId, role}`. These are written to the organizer table once. The `configured_grants` ledger prevents a removed representative from being automatically re-added by the initial configuration. No actual account emails are stored in source. Apply `drizzle/0002_neat_human_torch.sql` after the earlier migrations; it adds only the empty ledger schema. Role tests verify initial scoping and durable revocation.

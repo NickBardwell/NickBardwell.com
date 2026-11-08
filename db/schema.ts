@@ -13,9 +13,16 @@ export const events = sqliteTable('request_events', {
  actorId:text('actor_id').notNull(), status:text('status').notNull(), note:text('note').notNull(), createdAt:text('created_at').notNull(),
 });
 export const memberships = sqliteTable('memberships', {
- id:text('id').primaryKey(), clubId:text('club_id').notNull(), userId:text('user_id').notNull(), createdAt:text('created_at').notNull(),
+ id:text('id').primaryKey(), clubId:text('club_id').notNull(), userId:text('user_id').notNull(), status:text('status').notNull().default('active'), createdAt:text('created_at').notNull(),
 },t=>[uniqueIndex('membership_club_user').on(t.clubId,t.userId)]);
 export const clubSettings = sqliteTable('club_settings', {
  clubId:text('club_id').primaryKey(), members:integer('members'), joinMethod:text('join_method').notNull(),
  joinUrl:text('join_url'), verifiedAt:text('verified_at').notNull(), updatedBy:text('updated_by').notNull(),
+});
+export const organizers = sqliteTable('club_organizers', {
+ id:text('id').primaryKey(),clubId:text('club_id').notNull(),email:text('email').notNull(),
+ role:text('role').notNull(),addedBy:text('added_by').notNull(),createdAt:text('created_at').notNull(),
+},t=>[uniqueIndex('organizer_club_email').on(t.clubId,t.email)]);
+export const configuredGrants = sqliteTable('configured_grants', {
+ key:text('key').primaryKey(),createdAt:text('created_at').notNull(),
 });

@@ -8,6 +8,20 @@
       "when": 1794163659003,
       "tag": "0000_graceful_outlaw_kid",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1794179316420,
+      "tag": "0001_fearless_iron_monger",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1794180324657,
+      "tag": "0002_neat_human_torch",
+      "breakpoints": true
     }
   ]
 }
