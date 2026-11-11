@@ -3,9 +3,10 @@ export type Club = {
   kind: 'club' | 'resource'; website: string | null; source: string;
   verified: boolean; joinMethod: 'unconfirmed' | 'self' | 'review';
   members: number | null; joinUrl?: string;
+  greekDivision?: 'Sorority' | 'Fraternity';
 };
 
-export const categories = ['Greek life & honors', 'Academic & professional', 'Education & innovation', 'Arts & creativity', 'Leadership & service', 'Campus resources', 'Faith & spirituality', 'Culture & community', 'Sports & recreation'];
+export const categories = ['Greek life', 'Academic & professional', 'Education & innovation', 'Arts & creativity', 'Leadership & service', 'Campus resources', 'Faith & spirituality', 'Culture & community', 'Sports & recreation'];
 const liberal = 'https://www.lsua.edu/academics/colleges/college-of-liberal-arts/';
 const science = 'https://www.lsua.edu/academics/colleges/college-of-science-technology-and-mathematics/';
 const social = 'https://lsua.edu/academics/colleges/college-of-social-sciences/';
@@ -14,15 +15,8 @@ const education = 'https://lsua.edu/academics/programs/bachelor-of-science-in-el
 const kinesiology = 'https://www.lsua.edu/academics/programs/bachelor-of-general-studies-with-concentration-in-kinesiology/';
 // Membership totals and enrollment methods must be verified by a reviewer, never inferred.
 const entries: [string, string, number, string, string, string | null, boolean?, boolean?][] = [
- ['alpha-kappa-eta','Alpha Kappa Eta',0,'A Greek-letter organization described in the supplied reference as supporting fellowship, academics, leadership, and campus involvement. Its exact identity, affiliation, and current activities need confirmation.','laurel',null],
- ['gamma-lambda-tau','Gamma Lambda Tau',0,'Connects Medical Laboratory Science students and promotes interest in laboratory science and phlebotomy through professional awareness and student interaction.','microscope','https://www.lsua.edu/academics/programs/associate-of-science---medical-laboratory-science/',true],
- ['kappa-sigma','Kappa Sigma · Pi-Alpha',0,'A men’s social fraternity emphasizing brotherhood, scholarship, leadership, personal development, and service to the university and community. Local chapter status needs confirmation.','shield',null],
- ['nsls','National Society of Leadership and Success',0,'A collegiate leadership honor society offering goal setting, leadership development, speaker programs, and opportunities to build professional and peer networks.','award',null],
- ['npc','NPC Greek Life',0,'The sorority community associated with the National Panhellenic Conference supports recruitment, scholarship, sisterhood, leadership, and philanthropy. Its specific campus role needs confirmation.','flower',null],
- ['phi-epsilon-kappa','Phi Epsilon Kappa · Iota Theta',0,'LSUA’s kinesiology honor society recognizes academic achievement in kinesiology and related fields.','medal',kinesiology,true],
- ['phi-mu','Phi Mu',0,'A national women’s fraternity promoting sisterhood, academic achievement, leadership, service, and personal growth. The local chapter’s current status needs confirmation.','flower',null],
- ['sigma-tau-delta','Sigma Tau Delta',0,'An international English honor society encouraging scholarship, literary activities, creative writing, and connections among students interested in language and literature.','feather',null],
- ['zeta-phi-beta','Zeta Phi Beta Sorority, Inc.',0,'A historically Black sorority centered on scholarship, service, sisterhood, and finer womanhood, with opportunities for leadership and community involvement.','heart',null],
+ ['phi-mu','Phi Mu',0,'LSUA’s active sorority, centered on sisterhood, scholarship, leadership, service, and personal growth.','flower',null,true],
+ ['kappa-delta','Kappa Delta',0,'LSUA’s active fraternity, offering members opportunities for fellowship, leadership, service, and campus involvement.','shield',null,true],
  ['accounting','Accounting Club',1,'Promotes accounting study and professional development while connecting students with practicing professionals. Members also develop a commitment to service and ethical responsibility.','calculator',business,true],
  ['amsa','American Medical Student Association',1,'Supports, informs, and inspires students preparing for medical careers and seeking to make a difference through medicine.','stethoscope',science,true],
  ['biology','Biological Science Organization',1,'Brings students interested in biology together for scientific exploration, academic development, and connections with other life-science students.','dna',null],
@@ -75,11 +69,16 @@ const entries: [string, string, number, string, string, string | null, boolean?,
  ['pomline','Purple and Gold Rush Pomline',8,'LSUA has a pomline/dance program, and an older catalog lists pomline as a club sport. “Purple and Gold Rush” as its current official name, performance details, and participation requirements remain unconfirmed.','sparkles',null],
 ];
 
+const greekDivisions: Record<string, Club['greekDivision']> = {
+  'phi-mu': 'Sorority',
+  'kappa-delta': 'Fraternity',
+};
+
 export const clubs: Club[] = entries.map(([id,name,category,description,icon,website,verified,resource]) => ({
   id,name,category:categories[category],description,icon,website,
   kind:resource?'resource':'club',verified:!!verified,
   source:verified?'University or organization reference':id==='turning-point'?'LSU Baton Rouge fallback':'Supplied student reference · needs confirmation',
-  joinMethod:'unconfirmed',members:null,
+  joinMethod:'unconfirmed',members:null,greekDivision:greekDivisions[id],
 }));
 
 export type ClubOverride = {clubId:string; members:number|null; joinMethod:string; joinUrl:string|null; verifiedAt:string;};
@@ -91,3 +90,4 @@ export function sortClubs(items:Club[],order='members') {
    (a.members===null&&b.members!==null?1:a.members!==null&&b.members===null?-1:
    (b.members??0)-(a.members??0)||a.name.localeCompare(b.name)));
 }
+
