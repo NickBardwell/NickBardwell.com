@@ -3,6 +3,7 @@ export type Club = {
   kind: 'club' | 'resource'; website: string | null; source: string;
   verified: boolean; joinMethod: 'unconfirmed' | 'self' | 'review';
   members: number | null; joinUrl?: string;
+  sampleProfile?: { members: number; representative: string; role: string };
   greekDivision?: 'Sorority' | 'Fraternity';
 };
 
@@ -13,7 +14,7 @@ const social = 'https://lsua.edu/academics/colleges/college-of-social-sciences/'
 const business = 'https://www.lsua.edu/academics/colleges/college-of-business/';
 const education = 'https://lsua.edu/academics/programs/bachelor-of-science-in-elementary-education/';
 const kinesiology = 'https://www.lsua.edu/academics/programs/bachelor-of-general-studies-with-concentration-in-kinesiology/';
-// Membership totals and enrollment methods must be verified by a reviewer, never inferred.
+// Verified membership totals and enrollment methods stay separate from fictional display samples.
 const entries: [string, string, number, string, string, string | null, boolean?, boolean?][] = [
  ['phi-mu','Phi Mu',0,'LSUA’s active sorority, centered on sisterhood, scholarship, leadership, service, and personal growth.','flower',null,true],
  ['kappa-delta','Kappa Delta',0,'LSUA’s active fraternity, offering members opportunities for fellowship, leadership, service, and campus involvement.','shield',null,true],
@@ -74,11 +75,14 @@ const greekDivisions: Record<string, Club['greekDivision']> = {
   'kappa-delta': 'Fraternity',
 };
 
-export const clubs: Club[] = entries.map(([id,name,category,description,icon,website,verified,resource]) => ({
+const sampleNames = ['Jordan Ellis', 'Taylor Brooks', 'Morgan Reed', 'Casey Bennett', 'Avery Collins', 'Riley Hayes', 'Cameron Parker', 'Quinn Foster', 'Alex Monroe', 'Sam Carter', 'Jamie Rivers', 'Drew Lawson'];
+
+export const clubs: Club[] = entries.map(([id,name,category,description,icon,website,verified,resource], index) => ({
   id,name,category:categories[category],description,icon,website,
   kind:resource?'resource':'club',verified:!!verified,
   source:verified?'University or organization reference':id==='turning-point'?'LSU Baton Rouge fallback':'Supplied student reference · needs confirmation',
   joinMethod:'unconfirmed',members:null,greekDivision:greekDivisions[id],
+  sampleProfile: resource ? undefined : { members: 12 + ((index * 17 + 23) % 89), representative: sampleNames[index % sampleNames.length], role: 'Student representative' },
 }));
 
 export type ClubOverride = {clubId:string; members:number|null; joinMethod:string; joinUrl:string|null; verifiedAt:string;};
